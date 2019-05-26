@@ -1,6 +1,7 @@
 var http = require('http');
 var url = require('url');
 var fileOperation = require('./file/fileOperation');
+var getQueryString = require('./query/getQueryString');
 
 http.createServer(function(req, res) {
     res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'});
@@ -21,6 +22,12 @@ http.createServer(function(req, res) {
                     res.write(data, 'binary');
                     res.end();
                 });
+                break;
+            case 'getMethodQuery':
+                getQueryString.getMethodQuery(req, res);
+                break;
+            case 'getPostMethodQuery':
+                getQueryString.getPostMethodQuery(req, res);
                 break;
             default:
                 res.write('访问路径不存在');
