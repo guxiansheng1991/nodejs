@@ -2,6 +2,8 @@ var http = require('http');
 var url = require('url');
 var fileOperation = require('./file/fileOperation');
 var getQueryString = require('./query/getQueryString');
+var dbOperation = require('./mysql/model-user');
+
 
 http.createServer(function(req, res) {
     res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'});
@@ -10,6 +12,12 @@ http.createServer(function(req, res) {
         var methodName = pathname.replace(/\//g, '');
         // 运行相应文件中的方法
         switch(methodName) {
+            case '':
+                fileOperation.readFile('./index.html', function(data) {
+                    res.write(data);
+                    res.end();
+                });
+                break;
             case 'readFile':
                 fileOperation.readFile('./file/index.html', function(data) {
                     res.write(data);
@@ -29,8 +37,21 @@ http.createServer(function(req, res) {
             case 'getPostMethodQuery':
                 getQueryString.getPostMethodQuery(req, res);
                 break;
+            case 'register':
+                fileOperation.readFile('./mysql/form.html', function(data) {
+                    res.write(data);
+                    res.end();
+                });
+                break;
+            case 'registerAction':
+                dbOperation.add(req, res);
+                break;
+            case 'userList':
+                dbOperation.userList(req, res);
+                break;
             default:
                 res.write('访问路径不存在');
+                res.end();
         }
     }
     
