@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <title>express基础内容</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <ul>
+      <% list.forEach(function(article) { %>
+        <li><%= article.name %></li>
+      <%});%>
+    </ul>
   </body>
 </html>

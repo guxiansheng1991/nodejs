@@ -1,3 +1,10 @@
 <h1><%= message %></h1>
 <h2><%= error.status %></h2>
 <pre><%= error.stack %></pre>
+
+
+<ul>
+      <% list.forEach(function(article) { %>
+        <%= <li>article.name</li> %>
+      <% }) %>
+    </ul>

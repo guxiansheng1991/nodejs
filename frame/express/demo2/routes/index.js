@@ -4,11 +4,7 @@ var db = require('../db');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  db.add({
-    name: '张三',
-    age: 12
-  });
-  res.render('index', { title: 'Express' });
+  res.render('index', { list: db.list});
 });
 
 module.exports = router;
