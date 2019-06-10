@@ -21,11 +21,11 @@ module.exports = {
     this.store();
   },
   delete(index) {
-    repos[index] = null;
+    repos.splice(index, 1);
     this.store();
   },
   update(index, newArticle) {
-    repos[index] = newArticle;
+    repos.splice(index, 1, newArticle);
     this.store();
   }
 };
