@@ -4,7 +4,7 @@ var db = require('../db');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { list: db.list});
+  res.render('index', { list: db.list, logined: req.session.logined});
 });
 
 router.post('/add', function(req, res, next) {
