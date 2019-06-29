@@ -1,0 +1,19 @@
+{
+  "name": "blog-1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "cross-env NODE_ENV=dev supervisor ./bin/www.js",
+    "pro": "cross-env NODE_ENV=production supervisor ./bin/www.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cross-env": "5.2.0",
+    "supervisor": "^0.12.0"
+  },
+  "dependencies": {}
+}
