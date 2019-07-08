@@ -33,7 +33,6 @@ const handleBlogRouter = (req, res) => {
     // return new SuccessModel(data);
     const author = '张三';
     req.body.author = author;
-    console.log('req.body', req.body);
     const result = newBlog(req.body);
     return result.then(data => {
       return new SuccessModel(data);
@@ -43,21 +42,26 @@ const handleBlogRouter = (req, res) => {
   // 更新博客
   if (method === 'POST' && req.path === '/api/blog/update') {
     const result = updateBlog(id, req.body);
-    if (result) {
-      return new SuccessModel();
-    } else {
-      return new ErrorModel('更新失败');
-    }
+    return result.then(val => {
+      if (val) {
+        return new SuccessModel();
+      } else {
+        return new ErrorModel('更新失败');
+      }
+    });
   }
 
   // 删除博客
   if (method === 'POST' && req.path === '/api/blog/del') {
-    const result = delBlog(id);
-    if (result) {
-      return new SuccessModel();
-    } else {
-      return new ErrorModel('更新失败');
-    }
+    const author = '张三';  // 假数据
+    const result = delBlog(id, author);
+    return result.then(val => {
+      if (val) {
+        return new SuccessModel();
+      } else {
+        return new ErrorModel('删除失败');
+      }
+    })
   }
 }
 

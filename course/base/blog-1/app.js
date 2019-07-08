@@ -50,17 +50,12 @@ const serverHandle = (req, res) => {
       });
       return;
     }
-    // let blogData = handleBlogRouter(req, res);
-    // // 匹配blog路由
-    // if (blogData) {
-    //   res.end(JSON.stringify(blogData));
-    //   return;
-    // }
   
-    let userData = handleUserRouter(req, res);
-    // 匹配user路由
-    if (userData) {
-      res.end(JSON.stringify(userData));
+    let userResult = handleUserRouter(req, res);
+    if (userResult) {
+      userResult.then(userData => {
+        res.end(JSON.stringify(userData));
+      });
       return;
     }
   
