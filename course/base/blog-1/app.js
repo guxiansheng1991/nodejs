@@ -43,12 +43,19 @@ const serverHandle = (req, res) => {
   getPostData(req).then(postData => {
     req.body = postData;
 
-    let blogData = handleBlogRouter(req, res);
-    // 匹配blog路由
-    if (blogData) {
-      res.end(JSON.stringify(blogData));
+    const blogResult = handleBlogRouter(req, res);
+    if (blogResult) {
+      blogResult.then(blogData => {
+        res.end(JSON.stringify(blogData));
+      });
       return;
     }
+    // let blogData = handleBlogRouter(req, res);
+    // // 匹配blog路由
+    // if (blogData) {
+    //   res.end(JSON.stringify(blogData));
+    //   return;
+    // }
   
     let userData = handleUserRouter(req, res);
     // 匹配user路由

@@ -9,20 +9,35 @@ const handleBlogRouter = (req, res) => {
   if (method === 'GET' && req.path === '/api/blog/list') {
     const author = req.query.author || '';
     const keyword = req.query.keyword || '';
-    let listData = getList(author, keyword);
-    return new SuccessModel(listData);
+    // let listData = getList(author, keyword);
+    // return new SuccessModel(listData);
+    let result = getList(author, keyword);
+    return result.then(listData => {
+      return new SuccessModel(listData);
+    });
   }
 
   // 获取博客详情
   if (method === 'GET' && req.path === '/api/blog/detail') {
-    let detailData = getDetail(id);
-    return new SuccessModel(detailData);
+    // let detailData = getDetail(id);
+    // return new SuccessModel(detailData);
+    let result = getDetail(id);
+    return result.then(blogDetail => {
+      return blogDetail;
+    });
   }
 
   // 新建博客
   if (method === 'POST' && req.path === '/api/blog/new') {
-    const data = newBlog(req.body);
-    return new SuccessModel(data);
+    // const data = newBlog(req.body);
+    // return new SuccessModel(data);
+    const author = '张三';
+    req.body.author = author;
+    console.log('req.body', req.body);
+    const result = newBlog(req.body);
+    return result.then(data => {
+      return new SuccessModel(data);
+    });
   }
 
   // 更新博客
