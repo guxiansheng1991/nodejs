@@ -9,40 +9,59 @@ const handleBlogRouter = (req, res) => {
   if (method === 'GET' && req.path === '/api/blog/list') {
     const author = req.query.author || '';
     const keyword = req.query.keyword || '';
-    let listData = getList(author, keyword);
-    return new SuccessModel(listData);
+    // let listData = getList(author, keyword);
+    // return new SuccessModel(listData);
+    let result = getList(author, keyword);
+    return result.then(listData => {
+      return new SuccessModel(listData);
+    });
   }
 
   // 获取博客详情
   if (method === 'GET' && req.path === '/api/blog/detail') {
-    let detailData = getDetail(id);
-    return new SuccessModel(detailData);
+    // let detailData = getDetail(id);
+    // return new SuccessModel(detailData);
+    let result = getDetail(id);
+    return result.then(blogDetail => {
+      return blogDetail;
+    });
   }
 
   // 新建博客
   if (method === 'POST' && req.path === '/api/blog/new') {
-    const data = newBlog(req.body);
-    return new SuccessModel(data);
+    // const data = newBlog(req.body);
+    // return new SuccessModel(data);
+    const author = '张三';
+    req.body.author = author;
+    const result = newBlog(req.body);
+    return result.then(data => {
+      return new SuccessModel(data);
+    });
   }
 
   // 更新博客
   if (method === 'POST' && req.path === '/api/blog/update') {
     const result = updateBlog(id, req.body);
-    if (result) {
-      return new SuccessModel();
-    } else {
-      return new ErrorModel('更新失败');
-    }
+    return result.then(val => {
+      if (val) {
+        return new SuccessModel();
+      } else {
+        return new ErrorModel('更新失败');
+      }
+    });
   }
 
   // 删除博客
   if (method === 'POST' && req.path === '/api/blog/del') {
-    const result = delBlog(id);
-    if (result) {
-      return new SuccessModel();
-    } else {
-      return new ErrorModel('更新失败');
-    }
+    const author = '张三';  // 假数据
+    const result = delBlog(id, author);
+    return result.then(val => {
+      if (val) {
+        return new SuccessModel();
+      } else {
+        return new ErrorModel('删除失败');
+      }
+    })
   }
 }
 
