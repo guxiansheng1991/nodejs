@@ -37,5 +37,6 @@ if (env === 'production') {
 }
 
 module.exports = {
-  MYSQL_CONFIG
+  MYSQL_CONFIG,
+  REDIS_CONF
 };
