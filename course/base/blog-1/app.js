@@ -32,7 +32,7 @@ const getPostData = (req) => {
         resolve({});
         return;
       }
-      resolve(JSON.parse(postData));
+      resolve(querystring.parse(postData));
     });
   });
   return promise;

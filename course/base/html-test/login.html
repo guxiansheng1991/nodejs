@@ -19,11 +19,11 @@
     </div>
 </div>
 
-<form class="sui-form form-horizontal">
+<div class="sui-form form-horizontal">
     <div class="control-group">
-        <label for="inputEmail" class="control-label">用户名：</label>
+        <label for="inputUsername" class="control-label">用户名：</label>
         <div class="controls">
-            <input type="text" id="inputEmail" placeholder="用户名">
+            <input type="text" id="inputUsername" placeholder="用户名" value="申玉超">
         </div>
     </div>
     <div class="control-group">
@@ -43,9 +43,40 @@
     <div class="control-group">
         <label class="control-label"></label>
         <div class="controls">
-            <button type="submit" class="sui-btn btn-primary">登录</button>
+            <button class="sui-btn btn-primary" id="login">登录</button>
         </div>
     </div>
-</form>
+</div>
 </body>
+<script>
+    $(function () {
+        // login
+        $('#login').on('click', function (e) {
+            var username = $('#inputUsername').val();
+            var password = $('#inputPassword').val();
+            // $.post('/api/user/login',{
+            //     username: username,
+            //     password: password
+            // }, function (data) {
+            //     console.log(data);
+            // });
+            $.ajax({
+                type: "POST",
+                url: '/api/user/login',
+                data: {
+                    username: username,
+                    password: password
+                },
+                headers: {'Content-Type': 'application/json'},
+                // contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                success: function (data) {
+                    if (data.errno === 0) {
+                        location.href = '/index.html';
+                    }
+                },
+                dataType: 'json'
+            });
+        });
+    });
+</script>
 </html>
