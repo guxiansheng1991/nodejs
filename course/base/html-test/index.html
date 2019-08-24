@@ -16,27 +16,62 @@
             <li><a href="./login.html">登录</a></li>
             <li><a href="./admin.html">个人中心</a></li>
         </ul>
+        <a id="username" style="vertical-align: middle;position: absolute;right: 20px;top: 10px;" href="/login.html">zhangsan</a>
     </div>
 </div>
 
 <table class="sui-table table-bordered">
     <thead>
-    <tr>
-        <th>＃</th>
-        <th>待付款</th>
-        <th>宝宝数量</th>
-        <th>交易金额</th>
-    </tr>
+        <tr>
+            <th>＃</th>
+            <th>标题</th>
+            <th>作者</th>
+            <th>时间</th>
+            <th>操作</th>
+        </tr>
     </thead>
-    <tbody>
-    <tr>
-        <td>所有交易</td>
-        <td>9999.00</td>
-        <td>999</td>
-        <td>99999.00</td>
-    </tr>
+    <tbody id="content">
     </tbody>
 </table>
 </body>
-<script></script>
+<script>
+    function formatTime(timestamp) {
+        var res = '';
+        if (timestamp) {
+            var date = new Date(timestamp);
+            return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate() + ' '
+                + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+        }
+    }
+
+    // 跳转到详情页
+    function detail(index) {
+        location.href = '/detail.html?id=' + index;
+    }
+
+    $(function () {
+        $.ajax({
+            type: "GET",
+            url: '/api/blog/list',
+            data: {},
+            headers: {'Content-Type': 'application/json'},
+            success: function (data) {
+                if (data.errno === 0) {
+                    var str = '';
+                    data.data.forEach(function(ele, index) {
+                        str += '<tr>'
+                                    + '<td>'+ (index + 1) +'</td>'
+                                    + '<td>'+ ele.title +'</td>'
+                                    + '<td>'+ ele.author +'</td>'
+                                    + '<td>'+ formatTime(ele.createtime) +'</td>'
+                                    + '<td><button onclick="detail('+ index +')">查看详情</button></td>'
+                                +'</tr>';
+                    });
+                    $('#content').html(str);
+                }
+            },
+            dataType: 'json'
+        });
+    });
+</script>
 </html>
