@@ -30,7 +30,7 @@ const handleBlogRouter = (req, res) => {
     // return new SuccessModel(detailData);
     let result = getDetail(id);
     return result.then(blogDetail => {
-      return blogDetail;
+      return new SuccessModel(blogDetail);
     });
   }
 

@@ -22,6 +22,7 @@
 
 <div>
     <h1 id="title"></h1>
+    <h6 id="time"></h6>
     <p id="content"></p>
 </div>
 </body>
@@ -31,14 +32,45 @@
 
     }
 
+    // 获取查询字符串中的参数
+    function search2obj () {
+        let res = {};
+        let searchStr = location.search;
+        if (searchStr.length > 0) {
+            searchStr = searchStr.substring(1, searchStr.length);
+            let searchList = searchStr.split('&');
+            searchList.forEach(ele => {
+                let item = ele.split('=');
+                res[item[0]] = item[1];
+            });
+        }
+        return res;
+    }
+
     // 获取详情
     function getDetail () {
         var title = $('#title');
         var content = $('#content');
+        var time = $('#time');
+        $.ajax({
+            type: "GET",
+            url: '/api/blog/detail',
+            data: {
+                id: search2obj().id
+            },
+            headers: {'Content-Type': 'application/json'},
+            success: function (data) {
+                if (data.errno === 0) {
+                    title.text(data.data.title);
+                    content.text(data.data.content);
+                    time.text(data.data.time);
+                }
+            },
+            dataType: 'json'
+        });
     }
     $(function () {
-
-
+        getDetail();
     });
 </script>
 </html>
