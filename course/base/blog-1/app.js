@@ -10,7 +10,7 @@ const getCookieExpires = () => {
   const d = new Date();
   d.setTime(d.getTime() + (24 * 60 * 60 * 1000));
   return d.toGMTString();
-}
+};
 
 // 处理post data
 const getPostData = (req) => {
@@ -36,7 +36,7 @@ const getPostData = (req) => {
     });
   });
   return promise;
-}
+};
 
 const serverHandle = (req, res) => {
   // 设置返回格式 JSON
