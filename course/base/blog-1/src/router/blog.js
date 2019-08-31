@@ -14,10 +14,19 @@ const handleBlogRouter = (req, res) => {
 
   // 获取博客列表
   if (method === 'GET' && req.path === '/api/blog/list') {
-    const author = req.query.author || '';
+    let author = req.query.author || '';
     const keyword = req.query.keyword || '';
     // let listData = getList(author, keyword);
     // return new SuccessModel(listData);
+    // 个人中心查看自己的博客
+    const isadmin = req.query.isadmin;
+    if (isadmin) {
+      const loginCheckResult = loginCheck(req);
+      if (loginCheckResult) {
+        return loginCheckResult;
+      }
+      author = req.session.username;
+    }
     let result = getList(author, keyword);
     return result.then(listData => {
       return new SuccessModel(listData);
