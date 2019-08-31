@@ -1,6 +1,7 @@
 const querystring = require('querystring');
 const handleBlogRouter = require('./src/router/blog');
 const handleUserRouter = require('./src/router/user');
+const { access } = require('./src/util/log');
 
 // session 数据
 const SESSION_DATA = {};
@@ -14,7 +15,7 @@ const getCookieExpires = () => {
 
 // 处理post data
 const getPostData = (req) => {
-  const promise = new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     if (req.method !== 'POST') {
       resolve({});
       return;
@@ -35,10 +36,12 @@ const getPostData = (req) => {
       resolve(querystring.parse(postData));
     });
   });
-  return promise;
 };
 
 const serverHandle = (req, res) => {
+  // 写入访问日志 access.log
+  access(`${Date.now()} -- ${req.url} -- ${req.method} -- ${req.headers['user-agent']}`);
+
   // 设置返回格式 JSON
   res.setHeader('Content-Type', 'application/json');
 
