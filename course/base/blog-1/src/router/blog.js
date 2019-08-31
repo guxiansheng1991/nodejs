@@ -50,7 +50,7 @@ const handleBlogRouter = (req, res) => {
     const loginCheckResult = loginCheck(req);
     if (loginCheckResult) {
       // 未登录
-      return loginCheck;
+      return loginCheckResult;
     }
     const author = req.session.username;
     req.body.author = author;
@@ -65,7 +65,7 @@ const handleBlogRouter = (req, res) => {
     const loginCheckResult = loginCheck(req);
     if (loginCheckResult) {
       // 未登录
-      return loginCheck;
+      return loginCheckResult;
     }
     const result = updateBlog(id, req.body);
     return result.then(val => {
@@ -82,7 +82,7 @@ const handleBlogRouter = (req, res) => {
     const loginCheckResult = loginCheck(req);
     if (loginCheckResult) {
       // 未登录
-      return loginCheck;
+      return loginCheckResult;
     }
     const author = req.session.username;
     const result = delBlog(id, author);
