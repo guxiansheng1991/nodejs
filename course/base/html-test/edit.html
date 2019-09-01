@@ -22,31 +22,85 @@
 
 <form class="sui-form form-horizontal">
     <div class="control-group">
-        <label for="inputEmail" class="control-label">博客名：</label>
+        <label for="inputTitle" class="control-label">博客名：</label>
         <div class="controls">
-            <input type="text" id="inputEmail" placeholder="博客名">
+            <input type="text" id="inputTitle" placeholder="博客名">
         </div>
     </div>
     <div class="control-group">
-        <label for="inputPassword" class="control-label">博客内容：</label>
+        <label for="inputContent" class="control-label">博客内容：</label>
         <div class="controls">
-            <textarea rows="3"></textarea>
-        </div>
-    </div>
-    <div class="control-group">
-        <label class="control-label"></label>
-        <div class="controls">
-            <label data-toggle="checkbox" class="checkbox-pretty inline">
-                <input type="checkbox" name="remember-me"><span>记住我</span>
-            </label>
+            <textarea rows="3" id="inputContent"></textarea>
         </div>
     </div>
     <div class="control-group">
         <label class="control-label"></label>
         <div class="controls">
-            <button type="submit" class="sui-btn btn-primary">登录</button>
+            <button type="button" class="sui-btn btn-primary" onclick="updateBlog()">更新</button>
         </div>
     </div>
 </form>
 </body>
+<script>
+    // 获取查询字符串中的参数
+    function search2obj () {
+        let res = {};
+        let searchStr = location.search;
+        if (searchStr.length > 0) {
+            searchStr = searchStr.substring(1, searchStr.length);
+            let searchList = searchStr.split('&');
+            searchList.forEach(ele => {
+                let item = ele.split('=');
+                res[item[0]] = item[1];
+            });
+        }
+        return res;
+    }
+
+    // 获取详情
+    function getDetail () {
+        var title = $('#inputTitle');
+        var content = $('#inputContent');
+        $.ajax({
+            type: "GET",
+            url: '/api/blog/detail',
+            data: {
+                id: search2obj().id
+            },
+            headers: {'Content-Type': 'application/json'},
+            success: function (data) {
+                if (data.errno === 0) {
+                    title.val(data.data.title);
+                    content.val(data.data.content);
+                }
+            },
+            dataType: 'json'
+        });
+    }
+
+    // 更新
+    function updateBlog () {
+        var title = $('#inputTitle');
+        var content = $('#inputContent');
+        $.ajax({
+            type: "POST",
+            url: '/api/blog/update' + '?id=' + search2obj().id,
+            data: {
+                title: title.val(),
+                content: content.val()
+            },
+            headers: {'Content-Type': 'application/json'},
+            success: function (data) {
+                if (data.errno === 0) {
+                    alert('更新成功');
+                }
+            },
+            dataType: 'json'
+        });
+    }
+
+    $(function () {
+        getDetail();
+    });
+</script>
 </html>

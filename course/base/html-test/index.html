@@ -64,7 +64,7 @@
                                     + '<td>'+ ele.title +'</td>'
                                     + '<td>'+ ele.author +'</td>'
                                     + '<td>'+ formatTime(ele.createtime) +'</td>'
-                                    + '<td><button onclick="detail('+ index +')">查看详情</button></td>'
+                                    + '<td><button onclick="detail('+ ele.id +')">查看详情</button></td>'
                                 +'</tr>';
                     });
                     $('#content').html(str);

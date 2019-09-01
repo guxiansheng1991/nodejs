@@ -49,6 +49,36 @@
         location.href = '/detail.html?id=' + index;
     }
 
+    // 更新博客
+    function updateBlog(index) {
+        location.href = '/edit.html?id=' + index;
+    }
+
+    // 删除博客
+    function deleteBlog(index) {
+        const res = window.confirm('确定删除此博客吗?');
+        if (!res) {
+            return;
+        }
+        $.ajax({
+            type: "POST",
+            url: '/api/blog/del' + '?id=' + index,
+            data: {},
+            headers: {'Content-Type': 'application/json'},
+            success: function (data) {
+                let str = '';
+                if (data.errno === 0) {
+                    getList();
+                }else if (data.errno === -1) {
+                    location.href = './login.html';
+                } else {
+                    alert('请求错误');
+                }
+            },
+            dataType: 'json'
+        });
+    }
+
     function getList() {
         $.ajax({
             type: "GET",
@@ -66,7 +96,11 @@
                             + '<td>'+ ele.title +'</td>'
                             + '<td>'+ ele.author +'</td>'
                             + '<td>'+ formatTime(ele.createtime) +'</td>'
-                            + '<td><button onclick="detail('+ index +')">查看详情</button></td>'
+                            + '<td>'
+                            +   '<button onclick="detail('+ ele.id +')">查看详情</button>'
+                            +   '<button onclick="updateBlog('+ ele.id +')">更新</button>'
+                            +   '<button onclick="deleteBlog('+ ele.id +')">删除</button>'
+                            + '</td>'
                             +'</tr>';
                     });
                     $('#content').html(str);
