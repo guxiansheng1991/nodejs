@@ -65,6 +65,8 @@
                 success: function (data) {
                     if (data.errno === 0) {
                         location.href = '/index.html';
+                    } else {
+                        alert(data.message);
                     }
                 },
                 dataType: 'json'
