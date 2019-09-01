@@ -5,7 +5,7 @@ const os = require('os');
 // 生成write stream
 function createWriteStream(filename) {
   const fullpath = path.join(__dirname, '../', '../', 'logs/', filename);
-  return fs.createWriteStream(fullpath, {flags: 'a'});
+  return fs.createWriteStream(fullpath);
 }
 
 // 写入log
