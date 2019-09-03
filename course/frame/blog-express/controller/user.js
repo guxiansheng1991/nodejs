@@ -13,8 +13,8 @@ const login = (username, password) => {
     }
     return {};
   });
-}
+};
 
 module.exports = {
   login
-}
+};
