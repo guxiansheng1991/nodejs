@@ -1,16 +1,19 @@
 const router = require('koa-router')();
+const { login } = require('../controller/user');
+const { SuccessModel, ErrorModel } = require('../model/resModel');
 
 router.prefix('/api/user');
 
 router.post('/login', async (ctx, next) => {
   const { username, password } = ctx.request.body;
-  ctx.body = {
-    errno: 0,
-    data: {
-      username,
-      password
-    }
-  };
+  const user = await login(username, password);
+  if (user.username) {
+    ctx.session.username = user.username;
+    ctx.session.realname = user.realname;
+    ctx.body = new SuccessModel();
+  } else {
+    ctx.body = new ErrorModel('登陆失败');
+  }
 });
 
 router.get('/session-test', async (ctx, next) => {
