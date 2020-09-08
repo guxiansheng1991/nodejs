@@ -43,7 +43,7 @@
       <workItem from="1587374905640" duration="671000" />
       <workItem from="1589428254559" duration="141000" />
       <workItem from="1599216052602" duration="114000" />
-      <workItem from="1599534782138" duration="8000" />
+      <workItem from="1599534782138" duration="579000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <created>1599216100721</created>
@@ -63,6 +63,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="test" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="842" y="381" key="#Notifications" timestamp="1599534898929">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="842" y="381" key="#Notifications/0.0.1920.1040@0.0.1920.1040" timestamp="1599534898929" />
     <state x="558" y="86" key="CommitChangelistDialog2" timestamp="1599216100012">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -71,9 +75,9 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1599216102866" />
-    <state x="754" y="432" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599216057881">
+    <state x="754" y="432" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599535358553">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="754" y="432" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1599216057881" />
+    <state x="754" y="432" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1599535358553" />
   </component>
 </project>
